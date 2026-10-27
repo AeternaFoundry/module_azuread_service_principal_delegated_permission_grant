@@ -7,6 +7,11 @@ Required:
     - service_principal_object_id
 Optional:
     - user_object_id
+    - timeouts (block):
+        - create (optional)
+        - delete (optional)
+        - read (optional)
+        - update (optional)
 EOT
 
   type = map(object({
@@ -14,6 +19,12 @@ EOT
     resource_service_principal_object_id = string
     service_principal_object_id          = string
     user_object_id                       = optional(string)
+    timeouts = optional(object({
+      create = optional(string)
+      delete = optional(string)
+      read   = optional(string)
+      update = optional(string)
+    }))
   }))
   validation {
     condition = alltrue([

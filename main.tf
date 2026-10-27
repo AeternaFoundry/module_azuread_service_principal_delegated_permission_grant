@@ -5,5 +5,15 @@ resource "azuread_service_principal_delegated_permission_grant" "service_princip
   resource_service_principal_object_id = each.value.resource_service_principal_object_id
   service_principal_object_id          = each.value.service_principal_object_id
   user_object_id                       = each.value.user_object_id
+
+  dynamic "timeouts" {
+    for_each = each.value.timeouts != null ? [each.value.timeouts] : []
+    content {
+      create = timeouts.value.create
+      delete = timeouts.value.delete
+      read   = timeouts.value.read
+      update = timeouts.value.update
+    }
+  }
 }
 
